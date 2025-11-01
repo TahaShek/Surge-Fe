@@ -1,15 +1,11 @@
 import {
   Home,
   Search,
-  
   Bookmark,
-  
   User,
-
   LogOut,
   LayoutDashboard,
   Briefcase,
-
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
@@ -54,12 +50,6 @@ const seekerNavigationItems = [
 
 // Talent Finder Navigation (Recruiter/Employer)
 const finderNavigationItems = [
-  {
-    title: "Dashboard",
-    href: "/finder",
-    icon: Home,
-    description: "Overview of your job posts and applications",
-  },
   {
     title: "Job Posts",
     href: "/my-jobs",

@@ -73,8 +73,8 @@ export function Navbar() {
 
   const getRoleDisplayName = (roleName: string) => {
     const roleMap: Record<string, string> = {
-      talent_finder: "Recruiter",
-      talent_seeker: "Job Seeker",
+      talent_finder: "Talent Finder",
+      talent_seeker: "Talent Seeker",
     };
     return (
       roleMap[roleName] ||
