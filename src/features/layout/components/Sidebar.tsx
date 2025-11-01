@@ -1,54 +1,55 @@
-import { Users, Settings, LayoutDashboard, LogOut, ClipboardEdit, MessageSquare, Bell, Map } from "lucide-react";
+import { 
+  Home,
+  Search,
+  FileText,
+  Bookmark,
+  MessageSquare,
+  User,
+  Settings,
+  LogOut,
+  LayoutDashboard
+} from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useAbility } from "@/features/authorization";
-import type { Subjects } from "@/features/authorization/types/ability.types";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 
 const navigationItems = [
   {
     title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-    subject: 'Dashboard' as Subjects,
+    href: "/seeker",
+    icon: Home,
   },
   {
-    title: "Chat",
+    title: "Browse Jobs",
+    href: "/jobs",
+    icon: Search,
+  },
+  {
+    title: "My Applications",
+    href: "/my-applications",
+    icon: FileText,
+  },
+  {
+    title: "Saved Jobs",
+    href: "/bookmarks",
+    icon: Bookmark,
+  },
+  {
+    title: "Messages",
     href: "/chat",
     icon: MessageSquare,
-    subject: 'Chat' as Subjects,
   },
   {
-    title: "Notifications",
-    href: "/notifications",
-    icon: Bell,
-    subject: 'Notifications' as Subjects,
-  },
-  {
-    title: "Maps",
-    href: "/maps",
-    icon: Map,
-    subject: 'Maps' as Subjects,
-  },
-  {
-    title: "Hello",
-    href: "/users",
-    icon: Users,
-    subject: 'Hello' as Subjects,  // Updated to match the new subject name
-  },
-  {
-    title: "User Form",
-    href: "/user-form",
-    icon: ClipboardEdit,
-    subject: 'UserForm' as Subjects,
+    title: "Profile",
+    href: "/profile",
+    icon: User,
   },
   {
     title: "Settings",
     href: "/settings",
     icon: Settings,
-    subject: 'Settings' as Subjects,
   },
 ];
 
@@ -59,13 +60,7 @@ interface SidebarProps {
 
 export function Sidebar({ className, onNavigate }: SidebarProps) {
   const location = useLocation();
-  const ability = useAbility();
   const logout = useAuthStore((state) => state.logout);
-
-  // Filter navigation items based on permissions
-  const authorizedItems = navigationItems.filter(item => 
-    ability.can('read', item.subject)
-  );
 
   return (
     <div className={cn("flex h-full flex-col gap-2", className)}>
@@ -73,14 +68,14 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <Link to="/" className="flex items-center gap-2 font-semibold">
           <LayoutDashboard className="h-6 w-6" />
-          <span>My App</span>
+          <span>CampusConnect</span>
         </Link>
       </div>
 
       {/* Navigation */}
       <div className="flex-1 overflow-auto py-2">
         <nav className="grid gap-1 px-2 lg:px-4">
-          {authorizedItems.map((item) => {
+          {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.href;
 
