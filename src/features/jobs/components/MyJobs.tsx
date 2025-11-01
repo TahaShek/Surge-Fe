@@ -119,7 +119,7 @@ export default function MyJobsPage() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold">My Job Posts</h1>
+            <h1 className="text-3xl font-bold">Job Posts</h1>
             <p className="text-muted-foreground mt-2">
               Manage and track your job postings
             </p>

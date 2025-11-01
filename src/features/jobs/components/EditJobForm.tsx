@@ -114,7 +114,7 @@ export default function EditJobPage() {
           className="mb-6"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to My Jobs
+          Back to Jobs
         </Button>
 
         <div className="max-w-4xl mx-auto">
