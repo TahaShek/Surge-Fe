@@ -163,7 +163,7 @@ export const ResetPasswordForm = () => {
 
       {/* Back to Login */}
       <div className="mt-6 text-center">
-        <p className="text-base text-gray-700">
+        <p className="text-base text-gray-600 dark:text-gray-400">
           Go back to{" "}
           <Link
             to= "/auth/login"

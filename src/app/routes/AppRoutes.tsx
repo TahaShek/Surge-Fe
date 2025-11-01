@@ -22,12 +22,13 @@ import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
 import MyJobsPage from "@/features/jobs/components/MyJobs";
 import EditJobPage from "@/features/jobs/components/EditJobForm";
 import { ProfileSwitchPage } from "@/features/profile/components/ProfileSwitchPage";
+import LandingPage from "../LandingPage";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
   {
     path: "/",
-    element: <Navigate to="/dashboard" replace />,
+    element: <LandingPage/>,
   },
 
   // Auth routes (public)

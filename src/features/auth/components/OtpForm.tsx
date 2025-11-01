@@ -70,7 +70,7 @@ export const OtpForm = () => {
           <div className="space-y-2 text-center">
             <Label
               htmlFor="otp"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-gray-600 dark:text-gray-400"
             >
               Enter the 6-digit code sent to your email
             </Label>
