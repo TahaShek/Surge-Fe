@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router"
-import { Loader2, ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { jobFormSchema, type JobFormValues } from "../schemas/jobFormSchema"
-import { jobApi } from "../api/job.api"
-import { CreateJobForm } from "../components/CreateJobForm" // Reuse your existing form
-import { toast } from "sonner"
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import { Loader2, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { jobFormSchema, type JobFormValues } from "../schemas/jobFormSchema";
+import { jobApi } from "../api/job.api";
+import { CreateJobForm } from "../components/CreateJobForm";
+import { toast } from "sonner";
 
 export default function EditJobPage() {
-  const navigate = useNavigate()
-  const { jobId } = useParams()
-  const [isLoading, setIsLoading] = useState(true)
-  const [jobData, setJobData] = useState<JobFormValues | null>(null)
+  const navigate = useNavigate();
+  const { jobId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [jobData, setJobData] = useState<JobFormValues | null>(null);
 
   useEffect(() => {
     if (jobId) {
-      fetchJobData(jobId)
+      fetchJobData(jobId);
     }
-  }, [jobId])
+  }, [jobId]);
 
   const fetchJobData = async (id: string) => {
     try {
-      setIsLoading(true)
-      const response = await jobApi.getJobById(id)
-      
+      setIsLoading(true);
+      const response = await jobApi.getJobById(id);
+
       if (response) {
         // Transform job data to match form schema
         const formData: JobFormValues = {
@@ -41,68 +41,77 @@ export default function EditJobPage() {
           salary: response.salary || {
             min: undefined,
             max: undefined,
-            currency: "USD"
+            currency: "USD",
           },
           benefits: response.benefits,
-          applicationDeadline: response.applicationDeadline 
+          applicationDeadline: response.applicationDeadline
             ? new Date(response.applicationDeadline).toISOString().slice(0, 16)
             : "",
-          status: response.status
-        }
-        setJobData(formData)
+          status: response.status,
+        };
+        setJobData(formData);
       }
     } catch (error) {
-      console.error("Failed to fetch job:", error)
-      toast.error("Failed to load job data")
-      navigate("/my-jobs")
+      console.error("Failed to fetch job:", error);
+      toast.error("Failed to load job data");
+      navigate("/my-jobs");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleUpdateJob = async (data: JobFormValues) => {
     try {
-      if (!jobId) return
-      
+      if (!jobId) {
+        toast.error("Job ID not found");
+        return;
+      }
+
       const updateData = {
         title: data.title,
         description: data.description,
         requirements: data.requirements,
         responsibilities: data.responsibilities,
-        skills: data.skills.filter(skill => skill.trim() !== ""),
+        skills: data.skills.filter((skill) => skill.trim() !== ""),
         jobType: data.jobType,
         experienceLevel: data.experienceLevel,
         location: data.location || undefined,
         jobWorkingType: data.jobWorkingType,
-        salary: data.salary?.min || data.salary?.max
-          ? {
-              min: data.salary.min,
-              max: data.salary.max,
-              currency: data.salary.currency || "USD",
-            }
-          : undefined,
-        benefits: data.benefits.filter(benefit => benefit.trim() !== ""),
+        salary:
+          data.salary?.min || data.salary?.max
+            ? {
+                min: data.salary.min,
+                max: data.salary.max,
+                currency: data.salary.currency || "USD",
+              }
+            : undefined,
+        benefits: data.benefits.filter((benefit) => benefit.trim() !== ""),
         applicationDeadline: data.applicationDeadline
           ? new Date(data.applicationDeadline)
           : undefined,
         status: data.status,
-      }
+      };
 
-      await jobApi.updateJob(jobId, updateData)
-      toast.success("Job updated successfully")
-      navigate("/my-jobs")
-    } catch (error) {
-      console.error("Failed to update job:", error)
-      toast.error("Failed to update job")
+      await jobApi.updateJob(jobId, updateData);
+      toast.success("Job updated successfully");
+      navigate("/my-jobs");
+    } catch (error: any) {
+      console.error("Failed to update job:", error);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to update job";
+      toast.error(errorMessage);
+      throw error; // Re-throw to let the form handle the error state
     }
-  }
+  };
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
-    )
+    );
   }
 
   return (
@@ -124,14 +133,16 @@ export default function EditJobPage() {
           </p>
 
           {jobData && (
-            <CreateJobForm 
+            <CreateJobForm
               initialData={jobData}
               onSubmit={handleUpdateJob}
               submitButtonText="Update Job"
+              isEditMode={true} // This was missing!
+              jobId={jobId} // This was missing!
             />
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }

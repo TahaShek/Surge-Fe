@@ -14,8 +14,6 @@ import { PermissionGuard } from "@/features/authorization/components/PermissionG
 import { ChatPage } from "@/features/chat/pages/ChatPage";
 import { NotificationPage } from "@/features/notifications/pages/NotificationPage";
 import { NotificationApiDemo } from "@/features/notifications";
-import { RealtimeDemo } from "@/features/realtime/examples/RealtimeDemo";
-import { MapsPage } from "@/features/maps/pages/MapsPage";
 import JobsPage from "@/features/jobs/components/jobs";
 import CreateJobPage from "@/features/jobs/components/CreateJobPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPassword";
@@ -23,6 +21,8 @@ import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
 import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
 import MyJobsPage from "@/features/jobs/components/MyJobs";
 import EditJobPage from "@/features/jobs/components/EditJobForm";
+import BookmarksPage from "@/features/jobs/components/BookMark";
+import ApplicantsPage from "@/features/apply/components/Applicaitons";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
@@ -97,11 +97,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "dashboard",
-        element: (
-          <PermissionGuard subject="Dashboard">
-            <DashboardPage />
-          </PermissionGuard>
-        ),
+        element: <DashboardPage />,
       },
       {
         path: "my-jobs",
@@ -140,45 +136,15 @@ const router = createBrowserRouter([
         path: "profile",
         element: <TalentSeekerProfileForm />,
       },
-      {},
-      {},
-      {},
       {
-        path: "chat",
-        element: (
-          <PermissionGuard subject="Chat">
-            <ChatPage />
-          </PermissionGuard>
-        ),
+        path: "bookmarks",
+        element: <BookmarksPage />,
       },
       {
-        path: "notifications",
-        element: (
-          <PermissionGuard subject="Notifications">
-            <NotificationPage />
-          </PermissionGuard>
-        ),
+        path: "applicants/:jobId",
+        element: <ApplicantsPage />,
       },
-      {
-        path: "notifications/demo",
-        element: <NotificationApiDemo />,
-      },
-      {
-        path: "realtime-demo",
-        element: (
-          <PermissionGuard subject="Dashboard">
-            <RealtimeDemo />
-          </PermissionGuard>
-        ),
-      },
-      {
-        path: "maps",
-        element: (
-          <PermissionGuard subject="Maps">
-            <MapsPage />
-          </PermissionGuard>
-        ),
-      },
+
     ],
   },
 ]);

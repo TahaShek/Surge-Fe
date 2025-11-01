@@ -51,9 +51,9 @@ export function Navbar() {
 
     // Navigate to appropriate dashboard based on role
     if (roleName === "talent_finder") {
-      // navigate("/finder");
+      navigate("/my-jobs");
     } else if (roleName === "talent_seeker") {
-      // navigate("/dashboard");
+      navigate("/dashboard");
     }
 
     // Force a small delay to ensure the sidebar re-renders with new navigation

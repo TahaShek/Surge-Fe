@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { MapWithMarkers } from "../components/MapWithMarkers";
 import { LocationPicker } from "../components/LocationPicker";
 import { RouteMap } from "../components/RouteMap";
-import { GeolocationButton } from "../components/GeolocationButton";
-import { MapContainer } from "react-leaflet";
 import { mockMarkers, mockRoutes, generateRandomMarkers } from "../mocks/mock-locations";
 import { CITY_COORDINATES } from "../config/maps.config";
 import { MapPin, Navigation, Crosshair, Code } from "lucide-react";

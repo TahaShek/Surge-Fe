@@ -1,17 +1,15 @@
-import { 
+import {
   Home,
   Search,
-  FileText,
+  
   Bookmark,
-  MessageSquare,
+  
   User,
-  Settings,
+
   LogOut,
   LayoutDashboard,
   Briefcase,
-  PlusCircle,
-  Users,
-  BarChart3
+
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
@@ -26,43 +24,31 @@ const seekerNavigationItems = [
     title: "Dashboard",
     href: "/dashboard",
     icon: Home,
-    description: "Your job search dashboard"
+    description: "Your job search dashboard",
   },
   {
     title: "Browse Jobs",
     href: "/jobs",
     icon: Search,
-    description: "Find new opportunities"
-  },
-  {
-    title: "My Applications",
-    href: "/my-applications",
-    icon: FileText,
-    description: "Track your job applications"
+    description: "Find new opportunities",
   },
   {
     title: "Saved Jobs",
     href: "/bookmarks",
     icon: Bookmark,
-    description: "Your favorite job listings"
+    description: "Your favorite job listings",
   },
-  {
-    title: "Messages",
-    href: "/chat",
-    icon: MessageSquare,
-    description: "Chat with employers"
-  },
+  // {
+  //   title: "Messages",
+  //   href: "/chat",
+  //   icon: MessageSquare,
+  //   description: "Chat with employers"
+  // },
   {
     title: "Profile",
     href: "/profile",
     icon: User,
-    description: "Your professional profile"
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
-    description: "Account and preferences"
+    description: "Your professional profile",
   },
 ];
 
@@ -72,49 +58,19 @@ const finderNavigationItems = [
     title: "Dashboard",
     href: "/finder",
     icon: Home,
-    description: "Overview of your job posts and applications"
+    description: "Overview of your job posts and applications",
   },
   {
     title: "My Job Posts",
     href: "/my-jobs",
     icon: Briefcase,
-    description: "View and manage all your posted opportunities"
-  },
-  {
-    title: "Create Job",
-    href: "/create-job",
-    icon: PlusCircle,
-    description: "Post a new opportunity"
-  },
-  {
-    title: "Applicants",
-    href: "/applicants",
-    icon: Users,
-    description: "View all applicants across jobs"
-  },
-  {
-    title: "Analytics",
-    href: "/analytics",
-    icon: BarChart3,
-    description: "View insights and performance metrics"
-  },
-  {
-    title: "Messages",
-    href: "/chat",
-    icon: MessageSquare,
-    description: "Chat with applicants"
+    description: "View and manage all your posted opportunities",
   },
   {
     title: "Profile",
     href: "/profile",
     icon: User,
-    description: "Your organization profile"
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
-    description: "Account and preferences"
+    description: "Your organization profile",
   },
 ];
 
@@ -212,7 +168,7 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
             Switch roles from the navbar
           </p>
         </div>
-        
+
         <Separator className="mb-4" />
         <Button
           variant="ghost"

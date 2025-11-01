@@ -15,7 +15,7 @@ export function useSocket() {
   useEffect(() => {
     // Get auth token from storage
     const token = localStorage.getItem("accessToken");
-    
+
     // Initialize socket connection
     const socket = io(SOCKET_CONFIG.url, {
       ...SOCKET_CONFIG.options,
@@ -37,7 +37,7 @@ export function useSocket() {
 
     socket.on(SOCKET_CONFIG.events.DISCONNECT, (reason) => {
       console.warn("⚠️ Socket disconnected:", reason);
-      setConnectionStatus(prev => ({
+      setConnectionStatus((prev) => ({
         ...prev,
         connected: false,
         connecting: false,
@@ -47,7 +47,7 @@ export function useSocket() {
 
     socket.on(SOCKET_CONFIG.events.CONNECT_ERROR, (err) => {
       console.error("❌ Connection error:", err.message);
-      setConnectionStatus(prev => ({
+      setConnectionStatus((prev) => ({
         ...prev,
         connected: false,
         connecting: false,
@@ -57,7 +57,7 @@ export function useSocket() {
 
     socket.io.on(SOCKET_CONFIG.events.RECONNECT_ATTEMPT, (attempt) => {
       console.log(`🔄 Reconnection attempt ${attempt}...`);
-      setConnectionStatus(prev => ({
+      setConnectionStatus((prev) => ({
         ...prev,
         connecting: true,
         reconnectAttempts: attempt,
@@ -76,7 +76,7 @@ export function useSocket() {
 
     socket.io.on(SOCKET_CONFIG.events.RECONNECT_FAILED, () => {
       console.error("❌ Reconnection failed");
-      setConnectionStatus(prev => ({
+      setConnectionStatus((prev) => ({
         ...prev,
         connected: false,
         connecting: false,
@@ -101,30 +101,36 @@ export function useSocket() {
   }, []);
 
   // Listen to event
-  const on = useCallback((event: string, handler: (...args: unknown[]) => void) => {
-    if (!socketRef.current) {
-      console.warn("⚠️ Socket not initialized. Cannot listen to:", event);
-      return;
-    }
-    socketRef.current.on(event, handler);
-  }, []);
+  const on = useCallback(
+    (event: string, handler: (...args: unknown[]) => void) => {
+      if (!socketRef.current) {
+        console.warn("⚠️ Socket not initialized. Cannot listen to:", event);
+        return;
+      }
+      socketRef.current.on(event, handler);
+    },
+    []
+  );
 
   // Remove event listener
-  const off = useCallback((event: string, handler?: (...args: unknown[]) => void) => {
-    if (!socketRef.current) {
-      return;
-    }
-    if (handler) {
-      socketRef.current.off(event, handler);
-    } else {
-      socketRef.current.off(event);
-    }
-  }, []);
+  const off = useCallback(
+    (event: string, handler?: (...args: unknown[]) => void) => {
+      if (!socketRef.current) {
+        return;
+      }
+      if (handler) {
+        socketRef.current.off(event, handler);
+      } else {
+        socketRef.current.off(event);
+      }
+    },
+    []
+  );
 
   // Manual connect
   const connect = useCallback(() => {
     if (socketRef.current && !socketRef.current.connected) {
-      setConnectionStatus(prev => ({ ...prev, connecting: true }));
+      setConnectionStatus((prev) => ({ ...prev, connecting: true }));
       socketRef.current.connect();
     }
   }, []);
