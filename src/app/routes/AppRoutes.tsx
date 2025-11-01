@@ -16,6 +16,9 @@ import { NotificationPage } from "@/features/notifications/pages/NotificationPag
 import { NotificationApiDemo } from "@/features/notifications";
 import { RealtimeDemo } from "@/features/realtime/examples/RealtimeDemo";
 import { MapsPage } from "@/features/maps/pages/MapsPage";
+import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPassword";
+import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
+import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
@@ -33,6 +36,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute requireAuth={false}>
             <LoginPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "forgot-password",
+        element: (
+          <ProtectedRoute requireAuth={false}>
+            <ForgotPasswordPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "reset-password",
+        element: (
+          <ProtectedRoute requireAuth={false}>
+            <ResetPasswordPage />
           </ProtectedRoute>
         ),
       },
@@ -94,16 +113,20 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "profile",
+        element: (
+          <TalentSeekerProfileForm/>
+        ),
+      },
+      {
         path: "settings",
         element: (
-          <PermissionGuard subject="Settings">
             <div>
               <h1 className="text-3xl font-bold">Settings</h1>
               <p className="text-muted-foreground mt-2">
                 Settings page coming soon...
               </p>
             </div>
-          </PermissionGuard>
         ),
       },
       {
