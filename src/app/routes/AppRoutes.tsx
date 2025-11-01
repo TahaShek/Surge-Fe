@@ -16,15 +16,11 @@ import { NotificationPage } from "@/features/notifications/pages/NotificationPag
 import { NotificationApiDemo } from "@/features/notifications";
 import { RealtimeDemo } from "@/features/realtime/examples/RealtimeDemo";
 import { MapsPage } from "@/features/maps/pages/MapsPage";
-<<<<<<< HEAD
 import JobsPage from "@/features/jobs/components/jobs";
 import CreateJobPage from "@/features/jobs/components/CreateJobPage";
-import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
-=======
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPassword";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
 import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
->>>>>>> AuthScreens
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
@@ -142,7 +138,7 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: (
-            <div>
+            <div>   
               <h1 className="text-3xl font-bold">Settings</h1>
               <p className="text-muted-foreground mt-2">
                 Settings page coming soon...
