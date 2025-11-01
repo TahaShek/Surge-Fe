@@ -34,13 +34,13 @@ export default function App() {
   }
 
   return (
-    <AbilityProvider>
+    // <AbilityProvider>
       <ThemeProvider defaultTheme="system" storageKey="app-theme">
         <SocketProvider>
           <AppRoutes />
           <Toaster richColors closeButton position="top-right" />
         </SocketProvider>
       </ThemeProvider>
-    </AbilityProvider>
+    // </AbilityProvider>
   );
 }

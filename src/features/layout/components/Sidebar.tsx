@@ -18,7 +18,7 @@ import { useAuthStore } from "@/features/auth/store/auth.store";
 const navigationItems = [
   {
     title: "Dashboard",
-    href: "/seeker",
+    href: "/dashboard",
     icon: Home,
   },
   {

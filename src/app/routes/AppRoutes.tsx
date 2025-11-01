@@ -16,6 +16,8 @@ import { NotificationPage } from "@/features/notifications/pages/NotificationPag
 import { NotificationApiDemo } from "@/features/notifications";
 import { RealtimeDemo } from "@/features/realtime/examples/RealtimeDemo";
 import { MapsPage } from "@/features/maps/pages/MapsPage";
+import JobsPage from "@/features/jobs/components/jobs";
+import CreateJobPage from "@/features/jobs/components/CreateJobPage";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
@@ -94,16 +96,17 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "settings",
+        path: "jobs",
         element: (
-          <PermissionGuard subject="Settings">
-            <div>
-              <h1 className="text-3xl font-bold">Settings</h1>
-              <p className="text-muted-foreground mt-2">
-                Settings page coming soon...
-              </p>
-            </div>
-          </PermissionGuard>
+          <JobsPage />
+        ),
+      },
+      {
+        path: "jobs/create",
+        element: (
+          // <PermissionGuard subject="Dashboard">
+            <CreateJobPage />
+          // </PermissionGuard>
         ),
       },
       {
