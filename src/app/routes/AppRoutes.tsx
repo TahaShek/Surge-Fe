@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import { MainLayout } from "@/features/layout";
 import { UserFormTabs } from "@/features/user-form/UserFormTabs";
-import { 
-  LoginPage, 
-  SignupPage, 
+import {
+  LoginPage,
+  SignupPage,
   CheckEmailPage,
   EmailVerificationPage,
   OtpPage,
-  ProtectedRoute 
+  ProtectedRoute,
 } from "@/features/auth";
 import DashboardPage from "@/app/pages/DashboardPage";
 import { PermissionGuard } from "@/features/authorization/components/PermissionGuard";
@@ -21,6 +21,8 @@ import CreateJobPage from "@/features/jobs/components/CreateJobPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPassword";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
 import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
+import MyJobsPage from "@/features/jobs/components/MyJobs";
+import EditJobPage from "@/features/jobs/components/EditJobForm";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
@@ -102,66 +104,45 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "users",
+        path: "my-jobs",
+        element: <MyJobsPage />,
+      },
+      {
+        path: "/jobs/create",
         element: (
-          <PermissionGuard subject="Hello">
-            <div>
-              <h1 className="text-3xl font-bold">Users</h1>
-              <p className="text-muted-foreground mt-2">
-                Users list coming soon...
-              </p>
-            </div>
-          </PermissionGuard>
+          // <PermissionGuard subject="Dashboard">
+          <CreateJobPage />
+          // </PermissionGuard>
         ),
       },
       {
-        path: "jobs",
+        path: "jobs/edit/:jobId", // Dynamic route for editing specific job
         element: (
-          <JobsPage />
+          // <PermissionGuard subject="Dashboard">
+          <EditJobPage />
+          // </PermissionGuard>
         ),
+      },
+
+      {
+        path: "jobs",
+        element: <JobsPage />,
       },
       {
         path: "jobs/create",
         element: (
           // <PermissionGuard subject="Dashboard">
-            <CreateJobPage />
+          <CreateJobPage />
           // </PermissionGuard>
         ),
       },
       {
         path: "profile",
-        element: (
-          <TalentSeekerProfileForm/>
-        ),
-
+        element: <TalentSeekerProfileForm />,
       },
-      {
-        path: "settings",
-        element: (
-            <div>   
-              <h1 className="text-3xl font-bold">Settings</h1>
-              <p className="text-muted-foreground mt-2">
-                Settings page coming soon...
-              </p>
-            </div>
-        ),
-      },
-      {
-        path: "user-form",
-        element: (
-          <PermissionGuard subject="UserForm">
-            <UserFormTabs />
-          </PermissionGuard>
-        ),
-      },
-      {
-        path: "user-form/:id",
-        element: (
-          <PermissionGuard subject="UserForm">
-            <UserFormTabs userId="123" />
-          </PermissionGuard>
-        ),
-      },
+      {},
+      {},
+      {},
       {
         path: "chat",
         element: (
@@ -180,9 +161,7 @@ const router = createBrowserRouter([
       },
       {
         path: "notifications/demo",
-        element: (
-            <NotificationApiDemo />
-        ),
+        element: <NotificationApiDemo />,
       },
       {
         path: "realtime-demo",
@@ -207,4 +186,3 @@ const router = createBrowserRouter([
 export const AppRoutes = () => {
   return <RouterProvider router={router} />;
 };
-

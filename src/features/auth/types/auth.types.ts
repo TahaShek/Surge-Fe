@@ -1,27 +1,29 @@
-import type { Permission } from '@/features/authorization/types/ability.types';
+import type { Permission } from "@/features/authorization/types/ability.types";
 
-export const UserRole = {
-  ADMIN: 'ADMIN',
-  MANAGER: 'MANAGER',
-  USER: 'USER',
-  GUEST: 'GUEST',
-} as const;
-
-export type UserRole = typeof UserRole[keyof typeof UserRole];
+// types/user.types.ts
+export interface IRole {
+  _id: string;
+  name: string;
+  description: string;
+  permissions: any[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 export interface IUser {
   _id: string;
-  id?: string; // For backward compatibility
+  id?: string;
   email: string;
   name: string;
-  firstName?: string; // For backward compatibility
-  lastName?: string; // For backward compatibility
-  role: any[]; // Array of role objects from backend
+  firstName?: string;
+  lastName?: string;
+  role: IRole[]; // Array of role objects
   age?: number;
   profileImage?: string;
-  avatar?: string; // For backward compatibility
+  avatar?: string;
   isVerified: boolean;
-  permissions?: Permission[];
+  // permissions?: Permission[];
   lastLoginAt?: string;
   createdAt: string;
   updatedAt: string;
@@ -31,13 +33,15 @@ export interface IAuthResponse {
   statusCode: number;
   message: string;
   success: boolean;
-  data?: IUser | {
-    user: IUser;
-    tokens?: {
-      accessToken: string;
-      refreshToken: string;
-    };
-  };
+  data?:
+    | IUser
+    | {
+        user: IUser;
+        tokens?: {
+          accessToken: string;
+          refreshToken: string;
+        };
+      };
 }
 
 export interface ILoginRequest {

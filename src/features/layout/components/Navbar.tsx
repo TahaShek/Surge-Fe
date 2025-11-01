@@ -1,4 +1,12 @@
-import { Menu, Search, LogOut, User, Settings } from "lucide-react";
+import {
+  Menu,
+  Search,
+  LogOut,
+  User,
+  Settings,
+  Briefcase,
+  Users,
+} from "lucide-react";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,16 +18,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Sidebar } from "./Sidebar";
 import { useAuthStore } from "@/features/auth";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { NotificationBell } from "@/features/notifications";
+import { useRoleStore } from "@/features/auth/store/role.store";
 
 export function Navbar() {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const { currentRole, availableRoles, setCurrentRole } = useRoleStore();
 
   // Get user initials for avatar fallback
   const getUserInitials = () => {
@@ -29,6 +46,22 @@ export function Navbar() {
     }`.toUpperCase();
   };
 
+  const handleRoleChange = (roleName: string) => {
+    setCurrentRole(roleName);
+
+    // Navigate to appropriate dashboard based on role
+    if (roleName === "talent_finder") {
+      // navigate("/finder");
+    } else if (roleName === "talent_seeker") {
+      // navigate("/dashboard");
+    }
+
+    // Force a small delay to ensure the sidebar re-renders with new navigation
+    setTimeout(() => {
+      window.dispatchEvent(new Event("roleChanged"));
+    }, 100);
+  };
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -36,6 +69,26 @@ export function Navbar() {
     } catch (error) {
       console.error("Logout error:", error);
     }
+  };
+
+  const getRoleDisplayName = (roleName: string) => {
+    const roleMap: Record<string, string> = {
+      talent_finder: "Recruiter",
+      talent_seeker: "Job Seeker",
+    };
+    return (
+      roleMap[roleName] ||
+      roleName.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
+    );
+  };
+
+  const getRoleIcon = (roleName: string) => {
+    if (roleName === "talent_finder") {
+      return <Briefcase className="h-4 w-4" />;
+    } else if (roleName === "talent_seeker") {
+      return <Users className="h-4 w-4" />;
+    }
+    return <User className="h-4 w-4" />;
   };
 
   return (
@@ -66,7 +119,37 @@ export function Navbar() {
       </div>
 
       {/* Right Side Actions */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
+        {/* Role Switcher */}
+        {availableRoles.length > 1 && (
+          <div className="flex items-center gap-2">
+            <Select value={currentRole || ""} onValueChange={handleRoleChange}>
+              <SelectTrigger className="w-32 h-8">
+                <SelectValue placeholder="Select role">
+                  {currentRole && (
+                    <div className="flex items-center gap-2">
+                      {getRoleIcon(currentRole)}
+                      <span className="text-xs font-medium">
+                        {getRoleDisplayName(currentRole)}
+                      </span>
+                    </div>
+                  )}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {availableRoles.map((role) => (
+                  <SelectItem key={role._id} value={role.name}>
+                    <div className="flex items-center gap-2">
+                      {getRoleIcon(role.name)}
+                      <span>{getRoleDisplayName(role.name)}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
         {/* Theme Toggle */}
         <ThemeToggle />
 
@@ -95,6 +178,14 @@ export function Navbar() {
                 <p className="text-xs leading-none text-muted-foreground">
                   {user?.email || "user@example.com"}
                 </p>
+                {currentRole && (
+                  <div className="flex items-center gap-1 mt-1">
+                    {getRoleIcon(currentRole)}
+                    <span className="text-xs text-muted-foreground">
+                      {getRoleDisplayName(currentRole)}
+                    </span>
+                  </div>
+                )}
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
