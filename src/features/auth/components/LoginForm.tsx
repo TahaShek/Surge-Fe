@@ -19,9 +19,12 @@ import { Input } from "@/components/ui/input";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const error = useAuthStore((state) => state.error);
+  const clearError = useAuthStore((state) => state.clearError);
   const isLoading = useAuthStore((state) => state.isLoading);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const methods = useForm({
     resolver: zodResolver(loginSchema),
@@ -35,11 +38,27 @@ export const LoginForm = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      // OTP-first flow: request OTP, then navigate to OTP page with email
+      setIsSubmitting(true);
+      setLoginError(null);
+      clearError();
+      
+      // Step 1: Authenticate with email and password
+      await authApi.login({
+        email: data.email,
+        password: data.password,
+      });
+      
+      // Step 2: Request OTP after successful password authentication
       await authApi.loginWithOtp(data.email);
+      
+      // Step 3: Navigate to OTP page for second factor authentication
       navigate(`/auth/otp?email=${encodeURIComponent(data.email)}`);
-    } catch (error) {
-      console.error("Login with OTP error:", error);
+    } catch (error: any) {
+      console.error("Login error:", error);
+      const errorMessage = error.response?.data?.message || error.message || 'Login failed. Please check your credentials.';
+      setLoginError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   });
 
@@ -115,9 +134,9 @@ export const LoginForm = () => {
           </div>
 
           {/* Error Message */}
-          {error && (
+          {(error || loginError) && (
             <div className="p-3 rounded-md bg-red-50 border border-red-200">
-              <p className="text-sm text-red-600">{error.message}</p>
+              <p className="text-sm text-red-600">{loginError || error?.message}</p>
             </div>
           )}
 
@@ -125,9 +144,9 @@ export const LoginForm = () => {
           <Button
             type="submit"
             className="w-full h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-            disabled={isLoading}
+            disabled={isLoading || isSubmitting}
           >
-            {isLoading ? (
+            {(isLoading || isSubmitting) ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Signing in...

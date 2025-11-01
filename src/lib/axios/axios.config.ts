@@ -7,7 +7,7 @@ import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axio
 
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://192.168.242.214:8080/api',
   TIMEOUT: 30000,
   RETRY_ATTEMPTS: 3,
   RETRY_DELAY: 1000,

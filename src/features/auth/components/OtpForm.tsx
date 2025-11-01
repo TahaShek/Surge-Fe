@@ -38,6 +38,7 @@ export const OtpForm = () => {
   } = methods;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
   const navigate = useNavigate();
@@ -47,12 +48,15 @@ export const OtpForm = () => {
   const onSubmit = handleSubmit(async (data) => {
     if (!email) return;
     setIsLoading(true);
+    setOtpError(null);
     try {
       await authApi.verifyOtp(email, data.otp);
       await getCurrentUser();
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ OTP verification failed:", error);
+      const errorMessage = error.response?.data?.message || error.message || 'Invalid OTP. Please try again.';
+      setOtpError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -92,6 +96,13 @@ export const OtpForm = () => {
             <p className="text-sm text-red-500 text-center mt-2">
               {errors.otp.message}
             </p>
+          )}
+
+          {/* API Error Message */}
+          {otpError && (
+            <div className="p-3 rounded-md bg-red-50 border border-red-200">
+              <p className="text-sm text-red-600 text-center">{otpError}</p>
+            </div>
           )}
 
           {/* Submit Button */}
