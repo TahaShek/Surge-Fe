@@ -165,7 +165,7 @@ export const SignupForm = () => {
               />
               <Label
                 htmlFor="acceptTerms"
-                className="text-sm font-normal cursor-pointer leading-relaxed text-gray-700 -mt-0.5"
+                className="text-sm font-normal cursor-pointer leading-relaxed text-gray-600 dark:text-gray-400 -mt-0.5"
               >
                 I accept the{" "}
                 <Link
@@ -220,7 +220,7 @@ export const SignupForm = () => {
 
       {/* Login Link */}
       <div className="mt-6 text-center">
-        <p className="text-base text-gray-700">
+        <p className="text-base text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <Link
             to="/auth/login"

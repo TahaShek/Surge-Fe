@@ -120,7 +120,7 @@ export const LoginForm = () => {
               />
               <Label
                 htmlFor="rememberMe"
-                className="text-sm font-medium cursor-pointer text-gray-700"
+                className="text-sm font-medium cursor-pointer text-gray-600 dark:text-gray-400"
               >
                 Remember me
               </Label>
@@ -161,29 +161,9 @@ export const LoginForm = () => {
         </form>
       </FormProvider>
 
-      {/* Divider */}
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white text-gray-500">Or</span>
-        </div>
-      </div>
-
-      {/* OTP Login Button */}
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full h-11"
-        onClick={() => navigate("/auth/otp")}
-      >
-        Login with OTP
-      </Button>
-
       {/* Sign Up Link */}
       <div className="mt-6 text-center">
-        <p className="text-base text-gray-700">
+        <p className="text-base text-gray-600 dark:text-gray-400">
           Don't have an account?{" "}
           <Link
             to="/auth/signup"

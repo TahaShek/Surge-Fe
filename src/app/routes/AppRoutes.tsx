@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import { MainLayout } from "@/features/layout";
-import { UserFormTabs } from "@/features/user-form/UserFormTabs";
 import {
   LoginPage,
   SignupPage,
@@ -18,17 +17,18 @@ import JobsPage from "@/features/jobs/components/jobs";
 import CreateJobPage from "@/features/jobs/components/CreateJobPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPassword";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPassword";
-import TalentSeekerProfileForm from "@/features/talent-seeker/components/TalentSeekerProfileForm";
 import MyJobsPage from "@/features/jobs/components/MyJobs";
 import EditJobPage from "@/features/jobs/components/EditJobForm";
 import BookmarksPage from "@/features/jobs/components/BookMark";
 import ApplicantsPage from "@/features/apply/components/Applicaitons";
+import { ProfileSwitchPage } from "@/features/profile/components/ProfileSwitchPage";
+import LandingPage from "../LandingPage";
 
 const router = createBrowserRouter([
   // Redirect root to dashboard
   {
     path: "/",
-    element: <Navigate to="/dashboard" replace />,
+    element: <LandingPage/>,
   },
 
   // Auth routes (public)
@@ -134,7 +134,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <TalentSeekerProfileForm />,
+        element: <ProfileSwitchPage />,
       },
       {
         path: "bookmarks",

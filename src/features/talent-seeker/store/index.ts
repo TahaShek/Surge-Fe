@@ -1,0 +1,1 @@
+export { useTalentSeekerStore } from './talentSeeker.store';
