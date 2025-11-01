@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, useFieldArray, FormProvider } from "react-hook-form";
+import { useForm, useFieldArray, FormProvider, Controller } from "react-hook-form";
 import TextInput from "@/components/form/TextInput";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,9 @@ import {
 import type { TalentSeekerFormData } from "@/features/talent-seeker/types";
 import { useTalentSeekerStore } from "@/features/talent-seeker/store";
 import { Plus, Trash2, Loader2, FileUp } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FormControl } from "@/components/ui/form";
 
 interface TalentSeekerProfileFormProps {
   existingProfile?: TalentSeekerFormData | null;
@@ -147,13 +150,13 @@ const TalentSeekerProfileForm: React.FC<TalentSeekerProfileFormProps> = ({
               placeholder="e.g. Senior Frontend Engineer"
             />
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
+              <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-white">
                 Bio
               </label>
-              <textarea
+              <Textarea 
+                placeholder="Describe your company (minimum 50 characters)"
+                className="min-h-[100px]"
                 {...register("bio")}
-                placeholder="Tell us about your experience, achievements, and goals..."
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 bg-gray-50 resize-none min-h-[100px]"
               />
             </div>
           </CardContent>
@@ -260,18 +263,30 @@ const TalentSeekerProfileForm: React.FC<TalentSeekerProfileFormProps> = ({
               placeholder="Remote / On-site"
             />
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
-                Availability
-              </label>
-              <select
-                {...register("availability")}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 bg-gray-50 focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="available">Available</option>
-                <option value="open-to-offers">Open to Offers</option>
-                <option value="not-available">Not Available</option>
-              </select>
-            </div>
+  <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-white">
+    Availability
+  </label>
+  <Controller
+    name="availability"
+    control={control}
+    render={({ field }) => (
+      <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <FormControl>
+          <SelectTrigger className="w-full border border-gray-200 rounded-lg px-4 py-3 dark:text-gray-100 dark:border-gray-600 
+                                    hover:border-gray-300 dark:hover:border-gray-500 transition-colors duration-200">
+            <SelectValue placeholder="Select availability" />
+          </SelectTrigger>
+        </FormControl>
+        <SelectContent>
+          <SelectItem value="available">Available</SelectItem>
+          <SelectItem value="open-to-offers">Open to Offers</SelectItem>
+          <SelectItem value="not-available">Not Available</SelectItem>
+        </SelectContent>
+      </Select>
+    )}
+  />
+</div>
+
           </CardContent>
         </Card>
 

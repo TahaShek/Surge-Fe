@@ -61,7 +61,7 @@ const finderNavigationItems = [
     description: "Overview of your job posts and applications",
   },
   {
-    title: "My Job Posts",
+    title: "Job Posts",
     href: "/my-jobs",
     icon: Briefcase,
     description: "View and manage all your posted opportunities",

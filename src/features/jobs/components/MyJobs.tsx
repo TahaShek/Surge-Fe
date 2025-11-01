@@ -162,9 +162,9 @@ export default function MyJobsPage() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <div className="flex-1">
-            <h1 className="text-2xl sm:text-3xl font-bold">My Job Posts</h1>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold">My Posts</h1>
             <p className="text-muted-foreground mt-2">
               Manage and track your job postings
             </p>
