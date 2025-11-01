@@ -46,7 +46,8 @@ export interface ILoginRequest {
 }
 
 export interface ISignupRequest {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   age?: number;

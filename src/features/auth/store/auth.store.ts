@@ -83,7 +83,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       
       // Transform firstName + lastName to name
       const signupData: ISignupRequest = {
-        name: `${data.firstName} ${data.lastName}`.trim(),
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         password: data.password,
       };

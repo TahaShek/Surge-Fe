@@ -17,7 +17,7 @@ export const AuthLayout = ({ title, subtitle, children }: AuthLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       {/* Left Side - Branding & Info (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary/90 via-primary to-primary/80 p-12 text-white flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-primary/90 via-primary to-primary/80 p-12 text-white flex-col justify-between relative overflow-hidden">
         {/* Background Pattern */}
 
         
@@ -83,7 +83,7 @@ export const AuthLayout = ({ title, subtitle, children }: AuthLayoutProps) => {
       </div>
 
       {/* Right Side - Auth Form */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12 bg-linear-to-br from-gray-50 to-gray-100">
         <div className="w-full max-w-lg">
           {/* Mobile Logo */}
           <div className="lg:hidden mb-8 text-center">
